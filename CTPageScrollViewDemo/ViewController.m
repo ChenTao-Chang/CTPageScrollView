@@ -24,6 +24,9 @@
     pageScrollView.frame = CGRectMake(10, 20, 400, 300);
     pageScrollView.images = @[@"Targaryen.jpg",@"Lannister.jpg",@"Stark.jpg",@"Baratheon.jpg",@"Greyjoy.jpg"];
     [pageScrollView setPageControlOtherPageColor:[UIColor greenColor] currentPageCplor:[UIColor orangeColor]];
+    pageScrollView.imageViewTapBlock = ^(NSInteger index){
+        NSLog(@"%ld",(long)index);
+    };
     [self.view addSubview:pageScrollView];
 }
 

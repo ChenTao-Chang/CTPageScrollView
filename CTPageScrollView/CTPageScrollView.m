@@ -20,7 +20,7 @@
 
 @implementation CTPageScrollView
 
-#pragma mark -- init methods
+#pragma mark -- create components
 + (instancetype)pageScrollView{
     return [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass(self) owner:nil options:nil] firstObject];
 }
@@ -38,12 +38,39 @@
     [self setup];
 }
 
+/**
+ *  init
+ */
 - (void)setup{
     [self startTimer];
 }
 
+/**
+ *  pageControl loacaiotn
+ */
+- (void)setPageControlLoacation:(PageControlLocation)pageControlLoacation{
+    switch (pageControlLoacation) {
+        case PageControlLocationLeft:
+            
+            break;
+            
+        case PageControlLocationCenter:
+            
+            break;
+            
+        case PageControlLocationRight:
+            
+            break;
+        default:
+            break;
+    }
+}
 
-
+/**
+ *  add images
+ *
+ *  @param images imagesArray
+ */
 - (void)setImages:(NSArray *)images{
     
     _images = images;
@@ -54,10 +81,22 @@
         UIImageView *imageView = [[UIImageView alloc] init];
         imageView.image = [UIImage imageNamed:images[i]];
         [self.scrollView addSubview:imageView];
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageViewTapActon:)];
+        [imageView addGestureRecognizer:tap];
     }
     
     self.pageControl.numberOfPages = _images.count;
     self.pageControl.hidesForSinglePage = YES;
+}
+
+/**
+ *  tap action
+ */
+- (void)imageViewTapActon:(UITapGestureRecognizer *)tap{
+    if (self.imageViewTapBlock) {
+        self.imageViewTapBlock(self.pageControl.currentPage);
+    }
 }
 
 - (void)layoutSubviews{
@@ -74,6 +113,12 @@
     }
 }
 
+/**
+ *  set  pageControl's  color
+ *
+ *  @param otherPageColor
+ *  @param currentPageColor
+ */
 - (void)setPageControlOtherPageColor:(UIColor *)otherPageColor currentPageCplor:(UIColor *)currentPageColor{
     
     self.pageControl.pageIndicatorTintColor = otherPageColor;

@@ -8,10 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, PageControlLocation){
+    PageControlLocationLeft         = 0,
+    PageControlLocationCenter       = 1 << 0,
+    PageControlLocationRight        = 1 << 1,
+};
+
+typedef void(^imageViewTapBlock)(NSInteger index);
+
 @interface CTPageScrollView : UIView
 
 /** 图片数组 */
-@property(nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSArray *images;
+/** pageControl位置 */
+@property(nonatomic, assign) PageControlLocation pageControlLoacation;
+
+@property(nonatomic, copy)  imageViewTapBlock imageViewTapBlock;
 
 + (instancetype)pageScrollView;
 
